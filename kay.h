@@ -10,7 +10,7 @@
 
 typedef struct 
 {
-	SDL_Surface *imgkay;
+	SDL_Surface *imgkay[3];
 	SDL_Surface *imghp;
 	SDL_Rect poskay;
 	double v;
@@ -30,6 +30,7 @@ void deplacerSouris(Kay *kay, int pos_souris);
 int displaytext(SDL_Surface* screen, TTF_Font* font, Kay kay);
 void calculdx(Kay *kay);
 void saut(Kay *kay, int keysHeld[]);
+void animate(Kay kay, int *x, int *n);
 //void scroll(Kay *kay, Camera *cam);
 
 #endif

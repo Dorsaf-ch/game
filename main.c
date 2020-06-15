@@ -8,8 +8,8 @@
 
 int main(int argc, char *argv[])
 {
-	int FPS=1, i, pos_souris, souris=1;
-	int prev = 0;
+	int FPS=1, i, pos_souris, souris=0;
+	int prev = 0, n=0, x;
 	int continuer=1;
 	int keysHeld[400];
         TTF_Init();
@@ -25,10 +25,13 @@ int main(int argc, char *argv[])
 	ecran = SDL_SetVideoMode(2048,252, 32, SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE);
 
 	init_kay(&kay);
+	x = kay.poskay.x;
 	pos_souris=kay.poskay.x;
 	SDL_EnableKeyRepeat(10, 10);
 	background= IMG_Load("b.png");
-	kay.imgkay=IMG_Load("00.png");
+	kay.imgkay[0]=IMG_Load("00.png");
+	kay.imgkay[1]=IMG_Load("01.png");
+	kay.imgkay[2]=IMG_Load("02.png");
 
 	for(i=0; i<400; i++)
 	{
@@ -55,7 +58,7 @@ int main(int argc, char *argv[])
 				keysHeld[event.key.keysym.sym] = 0;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				pos_souris = event.button.x - kay.imgkay->w / 2;
+				pos_souris = event.button.x - kay.imgkay[0]->w / 2;
 				break;
 		}
 		}
@@ -99,10 +102,10 @@ int main(int argc, char *argv[])
 			deplacerKay(&kay, keysHeld, &prev);
 		}
 		saut(&kay, keysHeld);
-		
+		animate(kay, &x, &n);
 		SDL_FillRect(ecran,  NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
    		SDL_BlitSurface(background, NULL, ecran, NULL);
-		SDL_BlitSurface(kay.imgkay, NULL, ecran, &(kay.poskay));
+		SDL_BlitSurface(kay.imgkay[n], NULL, ecran, &(kay.poskay));
 		
 		//displaytext(ecran, font, kay);
 
@@ -116,7 +119,7 @@ int main(int argc, char *argv[])
 
 	}
 
-    SDL_FreeSurface(kay.imgkay);
+    SDL_FreeSurface(kay.imgkay[n]);
     SDL_FreeSurface(ecran);
     SDL_Quit();
     return EXIT_SUCCESS;

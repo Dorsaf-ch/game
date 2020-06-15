@@ -5,11 +5,12 @@
 #include "SDL/SDL_ttf.h" 
 #include <SDL/SDL_mixer.h> 
 #include "kay.h"
+#include <math.h>
 
 void init_kay(Kay *kay)
 {
 	kay->posinit=160;
-	kay->poskay.x=15;
+	kay->poskay.x=150;
 	kay->poskay.y=kay->posinit;
 	kay->acc=0;
 	kay->v=3;
@@ -52,10 +53,8 @@ void deplacerKay(Kay *kay, int keysHeld[], int *prev)
 			
 			*prev = SDLK_LEFT;
 			kay->moving=1;
-			
-			
-
 		}
+
 		if(kay->moving == 0)
 		{
 			if(*prev==SDLK_RIGHT)
@@ -68,8 +67,7 @@ void deplacerKay(Kay *kay, int keysHeld[], int *prev)
 				calculdx(kay);
               			kay->poskay.x-=kay->dx;
 			}
-		}
-           
+		}          
 }
 
 
@@ -178,3 +176,15 @@ int displaytext(SDL_Surface* screen, TTF_Font* font, Kay kay)
     }
 }
 
+void animate(Kay kay, int *x, int *n)
+{
+	if(fabs(kay.poskay.x - (*x)) > 10)
+	{
+		(*x) = kay.poskay.x;
+		(*n)++;
+		if(*n > 2)
+		{
+			*n=0;
+		}
+	}
+}
