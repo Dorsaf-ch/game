@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/rsc">
+        <file>img/night mode.jpg</file>
+        <file>img/day mode.jpg</file>
+        <file>img/password.png</file>
+        <file>img/user icon.png</file>
+        <file>img/log.png</file>
+        <file>img/return.png</file>
+        <file>img/temp2.jpg</file>
+        <file>img/return2.jpg</file>
+    </qresource>
+</RCC>
